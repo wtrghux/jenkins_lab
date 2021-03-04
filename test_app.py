@@ -26,7 +26,4 @@ def test_columns_exists():
 
 
 def test_records_count():
-    assert (
-        Clients.select().count() >= 10 == True
-        and Orders.select().count() >= 10 == True
-    )
+    assert len(Clients.select()) >= 10 and len(Orders.select()) >= 10
