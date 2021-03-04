@@ -1,14 +1,13 @@
 pipeline {
-    agent any
-    options {
-        timestamps()
-    }
+    agent { label 'python3'}
     stages {
         stage("Rename build"){
             steps{
                 script{
-                    currentBuild.displayName = "Попытка #${currentBuild.id}"
-                    currentBuild.description = "<a href=${currentBuild.absoluteUrl}>Build ${currentBuild.id}</a>"
+                    currentBuild.displayName = "#${currentBuild.id} my job"
+                    currentBuild.description = "${currentBuild.absoluteUrl}"
+                    //currentBuild.displayName = "Попытка #${currentBuild.id}"
+                    //currentBuild.description = "<a href=${currentBuild.absoluteUrl}>Build ${currentBuild.id}</a>"
                 }
             }
         }
