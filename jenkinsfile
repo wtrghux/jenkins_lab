@@ -8,22 +8,21 @@ pipeline {
             steps{
                 script{
                     currentBuild.displayName = "Попытка #${currentBuild.id}"
-                }
-                script {
                     currentBuild.description = "<a href=${currentBuild.absoluteUrl}>Build ${currentBuild.id}</a>"
                 }
             }
         }
-        stage("First step") {
+        stage("Run test") {
             steps {
                 sh 'python3 -m pip install -r requirements.txt'
+                sh 'python3 -m pytest -v --junitxml=report.xml .'
             }
         }
-        stage("Second step") {
-            steps {
-                sh 'python3 -m pytest -v'
-                junit '*.xml'
-            }
+    }
+    post {
+        always {
+            archive '*.xml'
+            junit allowEmptyResults: true, testResults: 'report.xml'
         }
     }
 }
