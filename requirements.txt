@@ -1,4 +1,4 @@
-inflect==5.0.2
+inflect==3.0.2
 peewee==3.14.0
 prettytable==2.0.0
 pytest==6.2.2
