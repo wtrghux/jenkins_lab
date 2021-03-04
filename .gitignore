@@ -1,14 +1,5 @@
-# Byte-compiled / optimized / DLL files
 __pycache__/
 .pytest_cache/
-*.py[cod]
-*$py.class
-
-# Editor directories and files
-.idea
 .vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+result.xml
+Database.db
