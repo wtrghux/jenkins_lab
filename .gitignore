@@ -1,5 +1,4 @@
 __pycache__/
 .pytest_cache/
 .vscode
-report.xml
 Database.db
