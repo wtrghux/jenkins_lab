@@ -1,7 +1,6 @@
 import time
 import random
-import argparse
-from sys import exit
+from sys import argv, exit
 from datetime import date
 from inflect import engine
 from prettytable import PrettyTable
@@ -9,13 +8,6 @@ from peewee import *
 
 pt = PrettyTable()
 p = engine()
-
-
-def createParser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("arg_1", nargs="?")
-    parser.add_argument("arg_2", nargs="?")
-    return parser
 
 
 db = SqliteDatabase("Database.db")
@@ -69,7 +61,7 @@ def fill():
         client.save()
         order = Orders(
             client=p.number_to_words(random.randint(1, 100)),
-            date=random_date("2020-01-01", "2021-02-25", random.random()),
+            date=random_date("2020-01-01", "2021-03-04", random.random()),
             amount=random.randint(1, 100),
             description=p.number_to_words(random.randint(1, 100)),
         )
@@ -81,7 +73,7 @@ def fill():
 def help_():
     print(
         """
-Запуск программы командой `>> python app.py параметр`
+Запуск программы командой `>> python app.py [параметр]`
 Параметры:
 – `init` инициализирует базу данных
 – `fill` заполнит базу данных тестовыми значениями
@@ -124,20 +116,25 @@ def show_orders(Orders):
 
 if __name__ == "__main__":
 
-    args = createParser().parse_args()
-    cursor = db.cursor()
+    try:
+        arg = argv[1]
+    except:
+        help_()
 
-    if args.arg_1 == "init":
+    if arg == "init":
         init()
-    elif args.arg_1 == "fill":
+    elif arg == "fill":
         fill()
-    elif args.arg_1 == "show":
-        if (args.arg_2).lower() == "clients":
-            show_clients(Clients)
-        elif (args.arg_2).lower() == "orders":
-            show_orders(Orders)
-        else:
-            print("This table does not exist")
+    elif arg == "show":
+        try:
+            if argv[2].lower() == "clients":
+                show_clients(Clients)
+            elif argv[2].lower() == "orders":
+                show_orders(Orders)
+            else:
+                print("This table does not exist")
+        except:
+            print("Please enter the table name")
     else:
         help_()
 
