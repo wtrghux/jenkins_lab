@@ -11,6 +11,9 @@ pipeline {
                 }
             }
         }
+        stage("Clone repo"){
+            git "https://github.com/wtrghux/jenkins_lab_1.git"
+        }
         stage("Run test") {
             steps {
                 sh 'python3 -m pip install -r requirements.txt'
