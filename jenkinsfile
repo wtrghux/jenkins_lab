@@ -1,10 +1,17 @@
-pipeline{
+pipeline {
     agent any
+    options {
+        timestamps()
+    }
     stages {
-        stage("Start project") {
-            steps{
-                sh "python3 -m pip install -r requirements.txt"
-                sh "python3 -m pytest -v"
+        stage("First step") {
+            steps {
+                sh 'pip3 install -r requirements.txt'
+            }
+        }
+        stage("Second step") {
+            steps {
+                sh 'python3 -m pytest -v'
             }
         }
     }
