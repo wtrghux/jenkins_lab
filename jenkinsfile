@@ -4,15 +4,11 @@ pipeline {
         stage("Rename build"){
             steps{
                 script{
-                    currentBuild.displayName = "#${currentBuild.id} my job"
-                    currentBuild.description = "${currentBuild.absoluteUrl}"
-                    //currentBuild.displayName = "Попытка #${currentBuild.id}"
-                    //currentBuild.description = "<a href=${currentBuild.absoluteUrl}>Build ${currentBuild.id}</a>"
+                    currentBuild.displayName = "Попытка #${currentBuild.id}"
+                    currentBuild.description = "<a href=${currentBuild.absoluteUrl}>Build ${currentBuild.id}</a>"
                 }
             }
         }
-        stage("Clone repo"){
-            git "https://github.com/wtrghux/jenkins_lab_1.git"
         }
         stage("Run test") {
             steps {
